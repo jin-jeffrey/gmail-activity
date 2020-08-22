@@ -44,14 +44,17 @@ def googleSignIn(usr,pw):
 
 def googleSearch():
     driver.get('https://google.com')
-    driver.find_elements_by_class_name('gLFyf')[0].send_keys(getRandomTopic())
-    driver.find_elements_by_class_name('gNO89b')[0].click()
+    search = driver.find_element_by_name('q')
+    search.send_keys(getRandomTopic())
+    search.send_keys(Keys.RETURN)
+    # searchResults[int(len(searchResults)*random.random())].click()
+    time.sleep(500)
 
 def main():
     global driver
     driver = webdriver.Chrome()
     # googleSignIn('username','password')
-
+    googleSearch()
     time.sleep(5)
     driver.close()
 
