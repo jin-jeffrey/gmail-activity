@@ -12,7 +12,7 @@ def getRandomTopic():
     Returns:
         Topic (string)
     """
-    topics = ['Microsoft', 'Google', 'Yahoo', 'Cute Dogs', 'Cute Cats', 'Cheese Platter', 'Tesla', 'Elon Musk', 'Apple Tech', 'Tim Cook', 'Coronavirus', 'Black Lives Matter']
+    topics = ['Microsoft', 'Google', 'Yahoo', 'Cute Dogs', 'Cute Cats', 'Cheese Platter', 'Tesla', 'Elon Musk', 'Apple Tech', 'Tim Cook', 'Scooby Doo', 'Black Lives Matter']
     return topics[int(len(topics) * random.random())]
 
 def googleSignIn(usr,pw):
@@ -47,15 +47,16 @@ def googleSearch():
     search = driver.find_element_by_name('q')
     search.send_keys(getRandomTopic())
     search.send_keys(Keys.RETURN)
-    # searchResults[int(len(searchResults)*random.random())].click()
-    time.sleep(500)
+    results = driver.find_elements_by_xpath("//div[@class='g']/div/div[@class='rc']/div[@class='r']/a")
+    print(results)
+    # res.click()
 
 def main():
     global driver
     driver = webdriver.Chrome()
     # googleSignIn('username','password')
     googleSearch()
-    time.sleep(5)
+    time.sleep(20)
     driver.close()
 
 main()
