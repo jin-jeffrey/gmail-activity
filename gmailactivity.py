@@ -82,7 +82,7 @@ def youtubeSearch():
     results = driver.find_elements_by_id('video-title')[0:10]
     vid = results[int(len(results) * random.random())]
     vid.click()
-    time.sleep(5)
+    time.sleep(200)
 
 def main():
     global driver
