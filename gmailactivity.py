@@ -12,8 +12,7 @@ def getRandomTopic():
     Returns:
         Topic (string)
     """
-    # topics = ['Microsoft', 'Google', 'Yahoo', 'Cute Dogs', 'Cute Cats', 'Cheese Platter', 'Tesla', 'Elon Musk', 'Apple Tech', 'Tim Cook', 'Scooby Doo', 'Black Lives Matter']
-    topics = ['space']
+    topics = ['Microsoft', 'Google', 'Yahoo', 'Cute Dogs', 'Cute Cats', 'Cheese Platter', 'Tesla', 'Elon Musk', 'Apple Tech', 'Tim Cook', 'Scooby Doo', 'Black Lives Matter']
     return topics[int(len(topics) * random.random())]
 
 def googleSignIn(usr,pw):
@@ -44,6 +43,13 @@ def googleSignIn(usr,pw):
     pass
 
 def googleSearch():
+    """
+    Search a topic on google, open a random result on the first page, and scroll around
+    Args:
+        NONE
+    Returns:
+        NONE
+    """
     driver.get('https://google.com')
     search = driver.find_element_by_name('q')
     search.send_keys(getRandomTopic())
@@ -54,12 +60,36 @@ def googleSearch():
     searchRes = list(filter(lambda x: len(x.text)!= 0, results))
     res = searchRes[int(len(searchRes) * random.random())]
     res.click()
+    #scroll around
+    time.sleep(3)
+    driver.execute_script("window.scrollTo(0, document.body.scrollHeight/2);")
+    time.sleep(3)
+    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    time.sleep(3)
+    driver.execute_script("window.scrollTo(0, document.body.scrollHeight/3);")
+    time.sleep(3)
+    driver.execute_script("window.scrollTo(0, 0);")
+    time.sleep(3)
+    pass 
+
+def youtubeSearch():
+    driver.get("https://youtube.com")
+    # search topic
+    search = driver.find_element_by_xpath("//input[@id='search']")
+    search.send_keys(getRandomTopic())
+    search.send_keys(Keys.RETURN)
+    # select video
+    results = driver.find_elements_by_id('video-title')[0:10]
+    vid = results[int(len(results) * random.random())]
+    vid.click()
+    time.sleep(5)
 
 def main():
     global driver
     driver = webdriver.Chrome()
     # googleSignIn('username','password')
-    googleSearch()
+    # googleSearch()
+    youtubeSearch()
     time.sleep(20)
     driver.close()  
 
