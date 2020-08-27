@@ -70,9 +70,16 @@ def googleSearch():
     time.sleep(3)
     driver.execute_script("window.scrollTo(0, 0);")
     time.sleep(3)
-    pass 
+ 
 
 def youtubeSearch():
+    """
+    Search a topic on youtube, open a random video, leave open for 10 minutes
+    Args:
+        NONE
+    Returns:
+        NONE
+    """
     driver.get("https://youtube.com")
     # search topic
     search = driver.find_element_by_xpath("//input[@id='search']")
@@ -82,15 +89,54 @@ def youtubeSearch():
     results = driver.find_elements_by_id('video-title')[0:10]
     vid = results[int(len(results) * random.random())]
     vid.click()
-    time.sleep(200)
+    time.sleep(600)
+
+def imageSearch():
+    """
+    Search a topic on google images and scroll around 
+    Args:
+        NONE
+    Returns:
+        NONE
+    """
+    driver.get('https://images.google.com/?gws_rd=ssl')
+    # search images
+    search = driver.find_element_by_name('q')
+    search.send_keys(getRandomTopic())
+    search.send_keys(Keys.RETURN)
+    # mimic scrolling
+    time.sleep(2)
+    driver.execute_script("window.scrollTo(0, document.body.scrollHeight/2);")
+    time.sleep(10)
+    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    time.sleep(10)
+    driver.execute_script("window.scrollTo(0, document.body.scrollHeight/3);")
+    time.sleep(10)
+    driver.execute_script("window.scrollTo(0, 0);")
 
 def main():
-    global driver
-    driver = webdriver.Chrome()
-    # googleSignIn('username','password')
-    # googleSearch()
-    youtubeSearch()
-    time.sleep(20)
-    driver.close()  
+    """
+    Generate activity on a gmail account by searching topics, watching youtube videos, and scrolling through images
+    Args:
+        NONE
+    Returns:
+        NONE
+    """    
+    try:
+        global driver
+        driver = webdriver.Chrome()
+        while(True):
+            taskVal = int(random.random()*3)
+            if taskVal == 0:
+                googleSearch()
+            elif taskVal == 1:
+                youtubeSearch()
+            else:
+                imageSearch()            
+        driver.close()
+    except Exception as e:
+        print(e)
+    finally:
+        print('Task Completed')
 
 main()
