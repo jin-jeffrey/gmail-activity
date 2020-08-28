@@ -125,6 +125,7 @@ def main():
     try:
         global driver
         driver = webdriver.Chrome()
+        googleSignIn('jinjeffcook1@gmail.com','!Jeffjin00')
         while(True):
             taskVal = int(random.random()*3)
             if taskVal == 0:
