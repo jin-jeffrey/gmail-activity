@@ -49,7 +49,7 @@ def googleSearch():
         NONE
     Returns:
         NONE
-    """
+    """ 
     driver.get('https://google.com')
     search = driver.find_element_by_name('q')
     search.send_keys(getRandomTopic())
@@ -125,14 +125,10 @@ def main():
     try:
         global driver
         driver = webdriver.Chrome()
-        while(True):
-            taskVal = int(random.random()*3)
-            if taskVal == 0:
-                googleSearch()
-            elif taskVal == 1:
-                youtubeSearch()
-            else:
-                imageSearch()            
+        googleSignIn('USERNAME','PASSWORD')
+        googleSearch()
+        imageSearch()
+        youtubeSearch()         
         driver.close()
     except Exception as e:
         print(e)
