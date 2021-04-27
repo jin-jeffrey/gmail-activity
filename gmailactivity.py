@@ -125,22 +125,6 @@ def main():
     try:
         global driver
         driver = webdriver.Chrome()
-<<<<<<< HEAD
-        googleSignIn('USERNAME','PASSWORD')
-        googleSearch()
-        imageSearch()
-        youtubeSearch()         
-=======
-        googleSignIn('jinjeffcook1@gmail.com','!Jeffjin00')
-        while(True):
-            taskVal = int(random.random()*3)
-            if taskVal == 0:
-                googleSearch()
-            elif taskVal == 1:
-                youtubeSearch()
-            else:
-                imageSearch()            
->>>>>>> ff3cbd5dfc15e56139b4564e513efe9791281d9a
         driver.close()
     except Exception as e:
         print(e)
